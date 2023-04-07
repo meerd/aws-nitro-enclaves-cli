@@ -1,8 +1,8 @@
 name: Update THIRD_PARTY_LICENSES_RUST_CRATES.html
 on:
   schedule:
-    # Every minute
-    - cron: '1 * * * *'
+    # Every ten minutes
+    - cron: '*/10 * * * *'
   workflow_dispatch:
 
 permissions:
@@ -17,6 +17,10 @@ jobs:
     if: github.repository == 'meerd/aws-nitro-enclaves-cli'
     runs-on: ubuntu-latest
     steps:
+      - uses: dawidd6/action-delete-branch@v3
+        with:
+          github_token: ${{github.token}}
+          branches: rust-crates-license-update
       - uses: actions/checkout@v3.5.0
         with:
           fetch-depth: 0
