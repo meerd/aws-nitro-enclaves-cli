@@ -1,9 +1,8 @@
 name: Update THIRD_PARTY_LICENSES_RUST_CRATES.html
 on:
   schedule:
-    # Every second
-    # https://crontab.guru/#*_*_*_*_*
-    - cron: 0-59 * * * *
+    # Every minute
+    - cron: '1 * * * *'
   workflow_dispatch:
 
 permissions:
