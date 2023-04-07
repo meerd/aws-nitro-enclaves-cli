@@ -17,12 +17,17 @@ jobs:
     if: github.repository == 'meerd/aws-nitro-enclaves-cli'
     runs-on: ubuntu-latest
     steps:
+      - uses: dawidd6/action-delete-branch@v3
+        with:
+          github_token: ${{github.token}}
+          branches: rust-crates-license-update
       - uses: actions/checkout@v3.5.0
         with:
           fetch-depth: 0
           persist-credentials: false
-      - run: cargo install --locked --version "~0.5" cargo-about
-      - run: cargo about generate --workspace --output-file THIRD_PARTY_LICENSES_RUST_CRATES.html about.hbs
+      - run: echo "hello" >> THIRD_PARTY_LICENSES_RUST_CRATES.html
+        #- run: cargo install --locked --version "~0.5" cargo-about
+        #- run: cargo about generate --workspace --output-file THIRD_PARTY_LICENSES_RUST_CRATES.html about.hbs
       - id: checkgitdiff # Early exit if there is no diff.
         run: |
           git diff --exit-code --quiet
