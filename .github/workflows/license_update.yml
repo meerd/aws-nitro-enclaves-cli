@@ -17,21 +17,31 @@ jobs:
     if: github.repository == 'meerd/aws-nitro-enclaves-cli'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@8f4b7f8 # v3.5.0
+      - uses: actions/checkout@v3.5.0
         with:
+          fetch-depth: 0
           persist-credentials: false
       - run: cargo install --locked --version "~0.5" cargo-about
       - run: cargo about generate --workspace --output-file THIRD_PARTY_LICENSES_RUST_CRATES.html about.hbs
+      - id: checkgitdiff # Early exit if there is no diff.
+        run: |
+          git diff --exit-code --quiet
+          [ $? -eq 0 ] && {
+            echo "There is no diff in the rust license file."
+            gh run cancel ${{ github.run_id }}
+            gh run watch ${{ github.run_id }}
+          }
+        continue-on-error: true
       - uses: gr2m/create-or-update-pull-request-action@v1.x
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          author: NitroCLI GitHub Bot <>
+          author: NitroCLI GitHub Bot <nitrocli@nomail.com>
           branch: rust-crates-license-update
           title: 'doc: update THIRD_PARTY_LICENSES_RUST_CRATES.html'
           body: >
             The license file is out of date. This is an automatically generated PR by
-            GitHub Action.
+            a GitHub Action.
           commit-message: 'doc: update THIRD_PARTY_LICENSES_RUST_CRATES.html'
 
 
