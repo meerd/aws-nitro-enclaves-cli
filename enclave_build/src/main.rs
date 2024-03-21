@@ -1,4 +1,4 @@
-// Copyright 2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// Copyright 2019-2024 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
 use clap::{App, AppSettings, Arg};
@@ -7,6 +7,7 @@ use std::fs::OpenOptions;
 use aws_nitro_enclaves_image_format::generate_build_info;
 use enclave_build::Docker2Eif;
 
+#[allow(clippy::suspicious_open_options)]
 fn main() {
     let matches = App::new("Docker2Eif builder")
         .about("Generate consistent EIF image from a Docker image")

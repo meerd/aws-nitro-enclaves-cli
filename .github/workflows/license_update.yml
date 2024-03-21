@@ -21,7 +21,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           persist-credentials: false
-      - run: cargo install --locked --version "~0.5" cargo-about
+      - run: cargo install --locked --version "0.5.16" cargo-about
       - run: cargo about generate --workspace --output-file THIRD_PARTY_LICENSES_RUST_CRATES.html about.hbs
       - id: checkgitdiff # Early exit if there is no diff.
         run: |
