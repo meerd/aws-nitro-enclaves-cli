@@ -1177,7 +1177,6 @@ dependencies = [
 name = "nitro-cli"
 version = "1.2.3"
 dependencies = [
- "async-trait",
  "aws-nitro-enclaves-image-format",
  "bindgen",
  "chrono",
@@ -1196,14 +1195,12 @@ dependencies = [
  "num-traits",
  "openssl",
  "page_size",
- "quote",
  "serde",
  "serde_cbor",
  "serde_json",
  "sha2",
  "signal-hook",
  "tempfile",
- "time",
  "vmm-sys-util",
  "vsock",
 ]
